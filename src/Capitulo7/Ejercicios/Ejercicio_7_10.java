@@ -1,9 +1,9 @@
 package Capitulo7.Ejercicios;
 
-public class ComisionPorVentas_7_10 {
+public class Ejercicio_7_10 {
     private int[] ventas;
 
-    public ComisionPorVentas_7_10(int[] ventas) {
+    public Ejercicio_7_10(int[] ventas) {
         this.ventas = ventas;
     }
 
