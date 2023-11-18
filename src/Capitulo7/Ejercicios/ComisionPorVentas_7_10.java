@@ -33,11 +33,12 @@ public class ComisionPorVentas_7_10 {
         for (int cuenta = 2; cuenta < contadores.length + 2; cuenta++) {
             // imprime etiqueta de barra ("200-299: ", ... "900-999: ", "1000+: ")
             if (cuenta == 10)
-                System.out.printf("   %4d+                ", 1000);
+                System.out.printf("\t1000+\t\t\t\t");
             else
-                System.out.printf("   %02d-%d              ", cuenta * 100, cuenta * 100 + 99);
+                System.out.printf("\t%4d-%4d\t\t\t\t", cuenta * 100, cuenta * 100 + 99);
 
             System.out.print(contadores[cuenta-2]);
+
 
             /*
             // imprime la barra de asteriscos
@@ -51,6 +52,7 @@ public class ComisionPorVentas_7_10 {
     }
 
     public int calcularComisionSemanal(int montoVentas) {
+
         return (int)(200 + montoVentas * 0.09);
     }
 
@@ -59,5 +61,4 @@ public class ComisionPorVentas_7_10 {
         for (int vendedor = 0; vendedor < ventas.length; vendedor++)
             System.out.printf("Vendedor %2d: $%3d%n", vendedor + 1, ventas[vendedor]);
     }
-
 }
