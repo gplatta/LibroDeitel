@@ -24,65 +24,104 @@ public class Ejercicio_7_19 {
     public static void main(String[] args) {
         boolean[] asientos = { false, false, false, false, false, false, false, false, false, false};
         int cantReservas = 0;
-        int nroAsiento = 0;
+        int nroAsiento;
         Scanner sc = new Scanner(System.in);
 
         while (cantReservas < asientos.length) {
-            System.out.println("Reserva nro " + cantReservas + 1 + ":");
+            char entrada = 's';
+            System.out.println();
+            System.out.printf("Reserva nro: %d\n", cantReservas + 1);
             System.out.print("Por favor escriba 1 para Primera Clase y 2 para Economico: ");
             int clase = sc.nextInt();
 
             nroAsiento = asientoLibre(asientos, clase);
 
             if (nroAsiento == -1)
-                switch (clase){
+                switch (clase) {
                     case 1:
                         System.out.println("Sección de Primera llena, ¿Desea reservar en Económica? s/n");
 
                         // si -> asignaAsiento(asientos, nroAsiento) e incrementa cantReservas
                         // no -> mensaje el próximo vuelo parte en 3 horas, no increnenta cantReservas
 
+                        entrada = sc.next().charAt(0);
+                        if (entrada == 's') {
+                            clase = 2;
+                            nroAsiento = asientoLibre(asientos, clase);
+                        }
+                        else
+                            System.out.println("El próximo vuelo parte en 3 horas");
                         break;
                     case 2:
-                        System.out.println("Sección de Económica llena, ¿Desea reservar en Primera? s/n");
+                        System.out.println("Sección Económica llena, ¿Desea reservar en Primera? s/n");
 
                         // si -> asignarAsiento(asientos, nroAsiento) e incrementa cantReservas
                         // no -> mensaje el próximo vuelo parte en 3 horas, no incrementa cantReservas
-
+                        entrada = sc.next().charAt(0);
+                        if (entrada == 's') {
+                            clase = 1;
+                            nroAsiento = asientoLibre(asientos, clase);
+                        }
+                        else
+                            System.out.println("El próximo vuelo parte en 3 horas");
                         break;
                 }
-            else {
+            if (entrada == 's') {
                 asignaAsiento(asientos, nroAsiento);
-                imprimePase(nroAsiento, clase);
+                imprimePase(nroAsiento + 1, clase);
                 cantReservas++;
             }
+
+            imprimieArreglo(asientos);
+            System.out.println();
         }
     }
 
     public static int asientoLibre(boolean[] asientos, int clase) {
-        int nro = -1;
+        int nro = 0;
         switch (clase) {
             case 1:
                 for (int i = 0; i < 5; i++)
                     if (!asientos[i]) {
-                        nro = i + 1;
+                        nro = i;
                         break;
                     }
+                    else
+                        nro = -1;
                 break;
             case 2:
                 for (int i = 5; i < 10; i++)
                     if (!asientos[i]) {
-                        nro = i + 1;
+                        nro = i;
                         break;
                     }
+                    else
+                        nro = -1;
                 break;
         }
         return nro;
     }
-    public static void asignaAsiento(boolean[] asientos, int asiento) {
-
+    public static void asignaAsiento(boolean[] asientos, int nroAsiento) {
+        asientos[nroAsiento] = true;
     }
 
     public static void imprimePase(int nroAsiento, int clase) {
+        System.out.println("-Su pase de abordar-");
+        System.out.println("Nro Asiento: " + nroAsiento);
+        if (clase == 1)
+            System.out.println("Clase: Primera");
+        else
+            System.out.println("Clase: Económica");
+        System.out.println("---------------------");
+    }
+
+    public static void imprimieArreglo(boolean[] arreglo) {
+        System.out.print("[ ");
+        for (int i = 0; i < arreglo.length; i++) {
+            if (i < arreglo.length - 1)
+                System.out.print(arreglo[i] + ", ");
+            else
+                System.out.print(arreglo[i] + " ]");
+        }
     }
 }
